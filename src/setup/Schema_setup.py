@@ -1,5 +1,4 @@
 # Databricks notebook source
-from pyspark.sql import SparkSession
 from src.config.config_file import (
     env, CATALOG,
     BRONZE_OUTPUT_CATALOG_FUND, BRONZE_OUTPUT_CATALOG_PRIC,
@@ -9,8 +8,6 @@ from src.config.config_file import (
     GOLD_OUTPUT_CATALOG_IND, GOLD_OUTPUT_PATH_IND,
     LOGGING_OUTPUT_PATH_PRIC, LOGGING_OUTPUT_CATALOG_PRIC
 )
-
-spark = SparkSession.builder.getOrCreate()
 
 
 # ------------------------------
@@ -296,6 +293,10 @@ create_daily_aggregates()
 
 create_daily_indicators()
 
+
+# COMMAND ----------
+
+# MAGIC %sql DROP TABLE IF EXISTS hive_metastore.dev_gold.daily_price_indicators;
 
 # COMMAND ----------
 

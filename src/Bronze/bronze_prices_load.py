@@ -1,14 +1,6 @@
-# Databricks notebook source
-from pyspark.sql.types import (
-    StructType, StructField, StringType, IntegerType, 
-    DoubleType, LongType, TimestampType, DateType
-)
-from src.config.config_file import (
-    BRONZE_INPUT_PATH_PRIC, 
-    BRONZE_SCHEMA_LOC_PRIC, 
-    BRONZE_CHECKPOINT_LOC_PRIC, 
-    BRONZE_OUTPUT_CATALOG_PRIC
-)
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType, LongType, TimestampType, DateType
+
+from src.config.config_file import BRONZE_INPUT_PATH_PRIC, BRONZE_SCHEMA_LOC_PRIC, BRONZE_CHECKPOINT_LOC_PRIC, BRONZE_OUTPUT_PATH_PRIC
 
 
 def read_prices_stream():
@@ -46,12 +38,9 @@ def write_prices(df):
     .format("delta") \
     .option("checkpointLocation", BRONZE_CHECKPOINT_LOC_PRIC) \
     .trigger(availableNow=True) \
-    .toTable(BRONZE_OUTPUT_CATALOG_PRIC) \
+    .toTable(BRONZE_OUTPUT_PATH_PRIC) \
     .awaitTermination() )
 
 
 df = read_prices_stream()
 write_prices(df)
-
-# COMMAND ----------
-

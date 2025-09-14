@@ -2,8 +2,6 @@
 from src.config.config_file import SILVER_OUTPUT_CATALOG_AGG, GOLD_CHECKPOINT_LOC_IND, GOLD_OUTPUT_CATALOG_IND
 from src.utils.technical_indicators import moving_average, exponential_moving_average, calculate_rsi, calculate_bollinger_bands, calculate_macd, calculate_obv
 from src.utils.load_history_for_calculations import read_prices, take_latest_row, add_prev_prefix, run_all_indicators
-
-
 from pyspark.sql.functions import (
     lit, struct, avg, col, row_number, when, stddev, lag, sum as spark_sum, max as spark_max
 )
@@ -13,6 +11,10 @@ from functools import reduce
 from pyspark.sql.functions import date_sub, current_date
 import time
 from delta.tables import DeltaTable
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.getOrCreate()
+
 
 output_columns = ['symbol', 'date', 'open', 'day_high', 'day_low', 'avg_price', 'volume', 'year', 'month', 'ma_12', 'ma_26', 'ma_60', 'ema_12', 'ema_26', 'ema_60', 'rsi_12', 'rsi_26', 'rsi_60', 'bb_upper_12', 'bb_lower_12', 'bb_width_12', 'bb_upper_26', 'bb_lower_26', 'bb_width_26', 'bb_upper_60', 'bb_lower_60', 'bb_width_60', 'macd', 'signal', 'macd_hist', 'obv']
 windows = [60,26,12]
@@ -50,7 +52,7 @@ def write_to_delta(input_df, input_table, output_table, granulity):
                     latest_records = take_latest_row(output_table, single_date, granulity)
                 latest_records = add_prev_prefix(latest_records)
                 result_df = batch_by_date.join(latest_records, on="symbol", how="left")
-                df_single = run_all_indicators(df_filtered, result_df, windows)
+                df_single = run_all_indicators(df_filtered, result_df, windows, output_columns)
                 latest_records = df_single
                 dfs.append(df_single)
                 

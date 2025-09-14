@@ -1,3 +1,4 @@
+# Databricks notebook source
 from datetime import timedelta
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import (
@@ -8,18 +9,12 @@ from pyspark.sql.functions import (
     date_sub,
 )
 from pyspark.sql.window import Window
-from src.utils.technical_indicators import (
-    moving_average,
-    exponential_moving_average,
-    calculate_rsi,
-    calculate_macd,
-    calculate_bollinger_bands,
-    calculate_obv
-)
+from src.config.spark_session import get_spark
 
 
-def read_prices(input_table, row_date, granulity, spark):
+def read_prices(input_table, row_date, granulity):
 
+    spark = get_spark()
     if granulity == "daily":
         datecol = "date"
         nb_days = 90
@@ -51,8 +46,9 @@ def read_prices(input_table, row_date, granulity, spark):
     return df_latest
 
 
-def take_latest_row(table_path, row_date, granulity, spark):
+def take_latest_row(table_path, row_date, granulity):
 
+    spark = get_spark()
     if granulity == "daily":
         datecol = "date"
     elif granulity == "hourly":
@@ -87,7 +83,7 @@ def add_prev_prefix(df):
     return df
 
 
-def run_all_indicators(df_filtered, df_result, windows, output_columns):
+def run_all_indicators(df_filtered, df_result, windows):
 
     df_result = moving_average(df_filtered, df_result, windows)
 
@@ -104,3 +100,6 @@ def run_all_indicators(df_filtered, df_result, windows, output_columns):
     df_result = df_result.select(*output_columns)
 
     return df_result
+
+# COMMAND ----------
+

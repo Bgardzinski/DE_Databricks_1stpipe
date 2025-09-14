@@ -15,7 +15,12 @@ GENERAL_PATH = f"abfss://stockstoragebg1@stockstoragebg1.dfs.core.windows.net/{e
 CONTAINER_URL = "stockstoragebg1"
 
 #CONNECTION_STRING
-CONNECTION_STRING = 'DefaultEndpointsProtocol=https;AccountName=stockstoragebg1;AccountKey=q1HDzmQpreCTkJN9r3MMSGNUy9uKPv1PG6vn32FPt/KvoYfYcGH3s1XvQMUwaoT5L+PDmAMMKFG4+AStKjJ7jw==;EndpointSuffix=core.windows.net'
+CONNECTION_STRING = 0
+
+#KEY COLUMNS
+KEY_COLUMNS_PRIC = ["symbol", "current_price", "extract_time"]
+
+VALUE_CONSTRAINS_PRIC = ["current_price"]
 
 # ------------------------------
 # RAW

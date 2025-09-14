@@ -1,3 +1,4 @@
+# Databricks notebook source
 from functools import reduce
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import (
@@ -29,7 +30,7 @@ def exponential_moving_average(df_output, window_sizes):
         ema_col = f"ema_{ws}"
         prev_col = f"prev_{ema_col}"
         ma_col = f"ma_{ws}"
-        
+
         df_output = df_output.withColumn(
             ema_col,
             when(
@@ -182,3 +183,6 @@ def calculate_obv(df_input, df_output):
     df_output = df_output.join(latest_obv, on="symbol", how="left")
 
     return df_output
+
+# COMMAND ----------
+

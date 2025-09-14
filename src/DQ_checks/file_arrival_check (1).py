@@ -2,7 +2,7 @@
 from datetime import datetime
 from azure.storage.blob import ContainerClient, BlobServiceClient
 from pyspark.sql import Row
-from src.config.config_file import CONTAINER_URL#, CONNECTION_STRING
+from src.config.config_file import CONTAINER_URL, CONNECTION_STRING
 from pyspark.sql.functions import col
 
 
@@ -25,8 +25,8 @@ def file_arrival_check_log(table_path: str,
     now = datetime.now()
     year, month, day, hour = now.year, now.month, now.day, now.hour
 
-    container_url = 'stockstoragebg1'
-    connection_string = 'DefaultEndpointsProtocol=https;AccountName=stockstoragebg1;AccountKey=q1HDzmQpreCTkJN9r3MMSGNUy9uKPv1PG6vn32FPt/KvoYfYcGH3s1XvQMUwaoT5L+PDmAMMKFG4+AStKjJ7jw==;EndpointSuffix=core.windows.net'
+    container_url = CONTAINER_URL
+    connection_string = CONNECTION_STRING
     folder_prefix = f"{table_path}/{year}/{month}"
 
     try:

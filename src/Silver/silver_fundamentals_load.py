@@ -3,14 +3,16 @@ from src.utils.common_functions import (
     filter_not_null, cast_ints, 
     drop_duplicates_on_columns
 )
-
 from pyspark.sql.functions import when, col
-
 from src.config.config_file import (
     BRONZE_OUTPUT_CATALOG_FUND, 
     SILVER_CHECKPOINT_LOC_FUND, 
     SILVER_OUTPUT_CATALOG_FUND
 )
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.getOrCreate()
+
 
 fundamentals_int_columns = [
     "fullTimeEmployees",

@@ -10,6 +10,10 @@ from src.config.config_file import (
     SILVER_OUTPUT_CATALOG_AGG, 
     SILVER_CHECKPOINT_LOC_AGG
 )
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.getOrCreate()
+
 
 # Read streaming data from silver table
 def readStream():

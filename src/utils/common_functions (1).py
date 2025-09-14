@@ -1,4 +1,3 @@
-# Databricks notebook source
 from pyspark.sql.functions import col, trim
 from pyspark.sql.types import IntegerType,LongType
 from functools import reduce
@@ -23,6 +22,3 @@ def filter_not_null(df, columns):
 
 def drop_duplicates_on_columns(df, columns):
     return df.dropDuplicates(columns)
-
-# COMMAND ----------
-

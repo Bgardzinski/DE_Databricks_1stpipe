@@ -1,5 +1,5 @@
 from functools import reduce
-from pyspark.sql import SparkSession, DataFrame
+from pyspark.sql import DataFrame
 from pyspark.sql.functions import (
     col,
     when,
@@ -10,6 +10,9 @@ from pyspark.sql.functions import (
     max as spark_max,
 )
 from pyspark.sql.window import Window
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.getOrCreate()
 
 
 def moving_average(df_input, df_output, window_sizes):

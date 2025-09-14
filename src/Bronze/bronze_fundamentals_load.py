@@ -9,6 +9,10 @@ from src.config.config_file import (
     BRONZE_CHECKPOINT_LOC_FUND,
     BRONZE_OUTPUT_CATALOG_FUND
 )
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.getOrCreate()
+
 # ------------------------------
 # Read fundamentals stream
 # ------------------------------
