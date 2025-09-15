@@ -15,7 +15,7 @@ GENERAL_PATH = f"abfss://stockstoragebg1@stockstoragebg1.dfs.core.windows.net/{e
 CONTAINER_URL = "stockstoragebg1"
 
 #CONNECTION_STRING
-CONNECTION_STRING = 0
+CONNECT_STR = 0
 
 #KEY COLUMNS
 KEY_COLUMNS_PRIC = ["symbol", "current_price", "extract_time"]
