@@ -329,7 +329,6 @@ create_daily_indicators()
 
 # COMMAND ----------
 
-spark.conf.set("fs.azure.account.key.stockstoragebg1.dfs.core.windows.net", "q1HDzmQpreCTkJN9r3MMSGNUy9uKPv1PG6vn32FPt/KvoYfYcGH3s1XvQMUwaoT5L+PDmAMMKFG4+AStKjJ7jw==")
 
 # COMMAND ----------
 
